@@ -1,0 +1,79 @@
+\documentclass[border=10pt]{standalone}
+
+\usepackage{amsmath,amssymb}
+\usepackage{tikz-cd}
+\usepackage[color]{zed}
+\newcommand{\clz}{\color{ZedColor}}
+
+\makeatletter
+\@ifundefined{clz}{\newcommand{\clz}{\color{ZedColor}}}{\renewcommand{\clz}{\color{ZedColor}}}
+\makeatother
+
+\newcommand{\Inst}{\mathcal{I}}
+\newcommand{\Sig}{\mathbf{Sig}}
+\newcommand{\Sen}{\mathbf{Sen}}
+\newcommand{\Mod}{\mathbf{Mod}}
+\newcommand{\BaseSig}{\Sigma}
+
+
+\begin{document}
+
+\begin{minipage}{13cm}
+
+\textbf{Drawn from email from Jim Woodcock, June 15th 2026}
+
+An institution is an abstract account of a logic. Here, we use a form with:
+
+\begin{itemize}
+
+\item a category $\clz \Sig$ of signatures and signature morphisms;
+
+\item a sentence functor $\clz \Sen : \Sig \to \mathbf{Set}$;
+\item a model functor $\clz \Mod : \Sig^{op} \to \mathbf{Cat}$;
+\item for each signature $\clz \Sigma$, a satisfaction relation
+      $\clz \models_{\Sigma} \subseteq |\Mod(\Sigma)| \times \Sen(\Sigma)$.
+\end{itemize}
+
+The satisfaction condition links the four components. For a signature morphism $\clz \sigma: \Sigma \to \Sigma'$,
+for a sentence $\clz \varphi \in \Sen(\Sigma)$, and for a model $\clz M' \in |\Mod(\Sigma')|$,
+
+\begin{equation}\clz
+  M' \models_{\Sigma'} \Sen(\sigma)(\varphi)
+  \quad\Longleftrightarrow\quad
+  \Mod(\sigma)(M') \models_{\Sigma} \varphi .
+\end{equation}
+
+
+
+  \centering
+
+  \[
+    \begin{tikzcd}[column sep=huge,row sep=large]
+      \varphi \in \operatorname{Sen}(\Sigma)
+      \arrow[r, "{\operatorname{Sen}(\sigma)}"]
+      &
+      \operatorname{Sen}(\sigma)(\varphi) \in \operatorname{Sen}(\Sigma') \\
+      \operatorname{Mod}(\sigma)(M') \in |\operatorname{Mod}(\Sigma)|
+      \arrow[u, dashed, "\models_{\Sigma}"']
+      &
+      M' \in |\operatorname{Mod}(\Sigma')|
+      \arrow[l, "{\operatorname{Mod}(\sigma)}"']
+      \arrow[u, dashed, "\models_{\Sigma'}"]
+    \end{tikzcd}
+  \]
+ 
+  \medskip
+ 
+  \small
+  \textbf{The satisfaction condition.}
+ 
+  Translating a sentence forward along \(\sigma : \Sigma \to \Sigma'\) and reducing a model backward along \(\sigma\) preserve satisfaction:
+  \[
+    M' \models_{\Sigma'} \operatorname{Sen}(\sigma)(\varphi)
+    \quad \Longleftrightarrow \quad
+    \operatorname{Mod}(\sigma)(M') \models_{\Sigma} \varphi .
+  \]
+ 
+\end{minipage}
+
+\end{document}
