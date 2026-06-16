@@ -1,0 +1,40 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% zed-proofc.sty: colored additions to zed-proof.sty - February 1999
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{ProofRuleColour}{cmyk}{0.91,0,0.88,0.12} % ForestGreen
+\definecolor{RaiseProofColour}{cmyk}{0,0.10,0.84,0} % Goldenrod
+
+\def\proof@DrawRule#1{%
+  \if@DoubleRule
+  \vbox{\color{ProofRuleColour}%
+    \hrule width #1 depth 0.1pt height 0.1pt
+    \kern 1pt 
+    \hrule width #1 depth 0.1pt height 0.1pt}
+  \else
+  \vbox{\color{ProofRuleColour}%
+    \hrule width #1 depth 0.2pt height 0.2pt}
+  \fi
+  }
+
+\def\raiseproof#1#2{%
+  \hbox to 2em{%
+    \hss
+    $\array[b]{@{}c@{}}
+    #2 \\
+    \hbox to 0pt{\hss \color{RaiseProofColour}\vrule width 0.4pt
+    height #1 \hss} 
+    \endarray$
+    \hss
+    }
+  \global\@RightOffset=0pt
+  \global\@LeftOffset=0pt
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

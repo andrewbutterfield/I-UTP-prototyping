@@ -1,0 +1,177 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% zed-textc.sty: colored additions for zed-text.sty - February 1999
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{PageHeaderColor}{cmyk}{0,0.61,0.87,0} % Orange
+\definecolor{TheoremLabelColor}{cmyk}{0,0.77,0.87,0} % RedOrange
+\definecolor{ReferenceColor}{cmyk}{0,0.61,0.87,0} % Orange
+\definecolor{TheoremBodyColor}{cmyk}{0.79,0.88,0,0} % Violet
+\definecolor{ChapterNameColor}{cmyk}{0,1,1,0} % Red
+\definecolor{SectionNameColor}{cmyk}{0,1,1,0} % Red
+\definecolor{SubsectionNameColor}{cmyk}{0,1,1,0} % Red
+\definecolor{TextMarkColor}{cmyk}{0,0.77,0.87,0} % RedOrange
+\definecolor{NumericMarkColor}{cmyk}{0,0.77,0.87,0} % RedOrange
+\definecolor{MarkDividerColor}{cmyk}{0,0.10,0.84,0} % Goldenrod
+\definecolor{BulletColor}{cmyk}{0,0.77,0.87,0} % RedOrange
+\definecolor{TextColor}{cmyk}{1,1,0,0} % Blue
+\definecolor{EmphasisColor}{cmyk}{1,0.50,0,0} % RoyalBlue
+
+\def\labelitemi{{\color{BulletColor} $\m@th\bullet$}}
+\def\labelitemii{{\color{BulletColor}\normalfont\bfseries --}}
+\def\labelitemiii{{\color{BulletColor}$\m@th\ast$}}
+\def\labelitemiv{{\color{BulletColor}$\m@th\cdot$}}
+
+\def\labelenumi{{\color{BulletColor}\theenumi.}}
+\def\labelenumii{({\color{BulletColor}\theenumii})}
+\def\labelenumiii{{\color{BulletColor}\theenumiii.}}
+\def\labelenumiv{{\color{BulletColor}\theenumiv.}}
+
+\let\col@emph\emph
+\let\col@em\em
+\def\emph#1{{\color{EmphasisColor} #1}}
+\def\em{\color{EmphasisColor}}
+
+\def\@makechapterhead#1{\vbox to 14\baselineskip{%
+    {\parindent \z@ \raggedright \reset@font 
+      \if@mainmatter
+        \large\rmfamily
+        {\color{ChapterNameColor}\@chapapp{} \thechapter}
+      \fi 
+      \par {\color{Goldenrod} \vskip 7\p@ \hrule depth 1.5pt \vskip 12\p@}
+      \huge\bfseries {\color{ChapterNameColor} #1} \par \nobreak \vfil}}}
+
+\def\@makeschapterhead#1{\vbox to 14\baselineskip{%
+    \vspace*{1.5\baselineskip} {\color{ChapterNameColor} \parindent \z@
+      \raggedright {\color{Goldenrod}\hrule depth 1.5pt} \vskip12pt \huge
+      {\color{ChapterNameColor}\bfseries #1}\par \nobreak \vfil}}}
+
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus.2ex}%
+  {\reset@font\large\bfseries\color{SectionNameColor}}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\reset@font\normalsize\bfseries\color{SubsectionNameColor}}}
+
+\def\ps@frontmatter{\let\@mkboth\@gobbletwo
+  \def\@oddhead{%
+        \null \hfil
+        {\color{PageHeaderColor}\normalfont\small\rmfamily\thepage}}% 
+  \def\@oddfoot{}%
+  \def\@evenhead{% 
+        {\color{PageHeaderColor}\normalfont\small\rmfamily\thepage}
+        \hfil \null}% 
+  \def\@evenfoot{}%
+  \def\chaptermark##1{%
+    {\markboth{##1}{##1}}}
+  \def\sectionmark##1{}%
+  \def\subsectionmark##1{}}
+
+\def\ps@myheadings{\let\@mkboth\@gobbletwo
+  \def\@oddhead{\color{PageHeaderColor}\hbox{}{\normalfont%
+      \small\slshape\rightmark} \hfil 
+    {\normalfont\small\rmfamily\thepage}}%
+  \def\@oddfoot{}%
+  \def\@evenhead{\color{PageHeaderColor}%
+    {\normalfont\small\rmfamily\thepage\relax} \hfil 
+    {\normalfont\small\slshape\leftmark\hbox{}}}
+  \def\@evenfoot{}%
+  \def\chaptermark##1{%
+    {\markboth{%
+        {\color{NumericMarkColor}\thechapter%
+          \color{MarkDividerColor}\headbreak\color{TextMarkColor}##1}}% 
+        {\color{NumericMarkColor}\thechapter%
+          \color{MarkDividerColor}\headbreak\color{TextMarkColor}##1}}}
+  \def\sectionmark##1{%
+    {\markright{%
+        \color{NumericMarkColor}\thesection%
+        \color{MarkDividerColor}\headbreak\color{TextMarkColor}##1}}}%
+  \def\subsectionmark##1{}}
+
+\def\ps@appendix{\let\@mkboth\@gobbletwo
+  \def\@oddhead{\color{PageHeaderColor}%
+    \hbox{}{\normalfont\small\slshape\rightmark} \hfil
+    {\normalfont\small\rmfamily\thepage}}%
+  \def\@oddfoot{}%
+  \def\@evenhead{\color{PageHeaderColor}%
+    {\normalfont\small\rmfamily\thepage\relax} \hfil
+    {\normalfont\small\slshape\leftmark\hbox{}}}
+  \def\@evenfoot{}%
+  \def\chaptermark##1{{\markboth{##1}{##1}}}
+  \def\sectionmark##1{}%
+  \def\subsectionmark##1{}}
+
+\def\@begintheorem#1#2{\trivlist \color{TheoremBodyColor}
+   \item[\hskip \labelsep{\bfseries\color{TheoremLabelColor} #1\ #2}]
+     \mbox{}}
+
+\def\@opargbegintheorem#1#2#3{\trivlist \color{TheoremBodyColor}
+      \item[\hskip \labelsep{{\bfseries\color{TheoremLabelColor} #1\ #2\ }(#3)}]
+        \mbox{}}
+
+\def\@endtheorem{\nobreak\noindent$\color{TheoremLabelColor}\Box$\endtrivlist}
+
+\def\cref#1{{\color{ReferenceColor}Chapter~\ref{chapter:#1}}}
+\def\sref#1{{\color{ReferenceColor}Section~\ref{section:#1}}}
+\def\xref#1{{\color{ReferenceColor}Example~\ref{example:#1}}}
+\def\lref#1{{\color{ReferenceColor}Law~\ref{law:#1}}}
+\def\aref#1{{\color{ReferenceColor}Appendix~\ref{appendix:#1}}}
+\def\fref#1{{\color{ReferenceColor}Figure~\ref{figure:#1}}}
+\def\tref#1{{\color{ReferenceColor}Table~\ref{table:#1}}}
+
+\def\exercises#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{Exercises for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{%
+    {\color{TextMarkColor}Exercises}%
+    }{%
+    {\color{NumericMarkColor}\thechapter\color{MarkDividerColor}%
+        \headbreak\color{TextMarkColor}#2}}
+  \@enumdepth=1
+  }
+
+\def\solutions#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{Solutions for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{%
+    {\color{TextMarkColor}Solutions}%
+    }{%
+    {\color{NumericMarkColor}\thechapter\color{MarkDividerColor}%
+        \headbreak\color{TextMarkColor}#2}}
+  \@enumdepth=1
+  }
+
+\def\laws#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{Laws for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{%
+    {\color{TextMarkColor}Laws}%
+    }{%
+    {\color{NumericMarkColor}\thechapter\color{MarkDividerColor}%
+        \headbreak\color{TextMarkColor}#2}}
+  \@enumdepth=1
+  }
+
+\AtBeginDocument{\color{TextColor}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

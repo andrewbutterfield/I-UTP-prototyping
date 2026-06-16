@@ -1,0 +1,59 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% zed-floatc.sty: colored additions to zed-float.sty - February 1999
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{FloatRuleColor}{cmyk}{0.65,0.13,0,0} % CornflowerBlue
+\definecolor{CaptionTextColor}{cmyk}{0.79,0.88,0,0} % Violet
+\definecolor{CaptionLabelColor}{cmyk}{0,0.61,0.87,0} % Orange
+\definecolor{TableContentsColor}{cmyk}{0.79,0.88,0,0} % Violet 
+
+\def\ruledtable{%
+  \bgroup 
+  \table[t] {\color{FloatRuleColor}\hrule width \textwidth} \par
+  \vskip \baselineskip \par \center
+  \color{TableContentsColor}}
+
+\def\endruledtable{%
+  \endcenter \par \noindent {\color{FloatRuleColor}\hrule width
+    \textwidth} \endtable \egroup}
+
+\def\optionalruledfigure[#1]#2#3#4{%
+  \begin{figure}[t] 
+    \color{FloatRuleColor}%
+    \hrule width\textwidth \vskip\abovedisplayskip%
+    \par \center%
+    \leavevmode \includegraphics[#1]{#2}%
+    \caption{#3} \label{figure:#4}
+    \endcenter \par 
+    \hrule width\textwidth
+  \end{figure}}
+
+\def\plainruledfigure#1#2#3{%
+  \begin{figure}[t] 
+    \color{FloatRuleColor}%
+    \hrule width\textwidth \vskip\abovedisplayskip%
+    \par \center%
+    \leavevmode \includegraphics{#1}%
+    \caption{#2} \label{figure:#3}%
+    \endcenter \par 
+    \hrule width\textwidth
+  \end{figure}}
+
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\color{CaptionLabelColor}#1 \color{CaptionTextColor} #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\color{CaptionLabelColor}#1 \color{CaptionTextColor} #2}\par
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

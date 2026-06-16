@@ -1,0 +1,138 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% zed-mathsc.sty: colored additions to zed-maths.sty - February 1999
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{BoxColor}{cmyk}{0.91,0,0.88,0.12} % ForestGreen
+\definecolor{SyntaxDefinitionColor}{cmyk}{0.98,0.13,0,0.43} % MidnightBlue
+\definecolor{ExplanationColor}{cmyk}{0.98,0.13,0,0.43} % MidnightBlue
+\definecolor{DefsSymbolColor}{cmyk}{0.91,0,0.88,0.12} % ForestGreen
+\definecolor{MathsColor}{cmyk}{0.50,1,0,0} % Plum
+
+\def\({\relax\ifmmode\@badmath\else \bgroup\color{MathsColor} $\fi}
+\def\){\relax\ifmmode\ifinner$\egroup\else\@badmath\fi\else \@badmath\fi}
+\let\math=\(
+\let\endmath=\)
+
+\def\zed{\@zed\@znoskip\halign to\linewidth\bgroup
+  {\color{MathsColor}\strut$\@zlign##$}\hfil \tabskip=0pt plus1fil\cr}
+\def\endzed{\crcr\egroup$$\global\@ignoretrue}
+
+\def\[{\begingroup\zed}
+\def\]{\crcr\egroup$$\endgroup\ignorespaces}
+
+\def\axdef{\def\also{\@zskip\zedskip}%
+  \color{BoxColor}
+  \predisplaypenalty=\preboxpenalty
+  \@zed\@znoskip\halign to\linewidth\bgroup 
+    \strut \vrule width\arrayrulewidth\hskip\zedleftsep{\color{MathsColor}
+    $\@zlign##$}\hfil \tabskip=0pt plus1fil\cr}
+
+\def\@topline#1{\hbox to\linewidth{%
+    \color{BoxColor} \vrule height\arrayrulewidth width\arrayrulewidth
+    \vrule height0pt depth\@jot width0pt
+    \hbox to\zedleftsep{\@zrulefill\thinspace}%
+    \bgroup \color{MathsColor} #1 \egroup \thinspace\@zrulefill}}
+
+\def\argue{
+  \color{MathsColor}
+  \@zed \interzedlinepenalty=\interdisplaylinepenalty
+  \openup\@jot \halign to\linewidth\bgroup
+  \strut$\@zlign##$\hfil \tabskip=0pt plus1fil
+  &\hbox to0pt{\color{ExplanationColor}\hss[{\@zlign##\unskip}]}\tabskip=0pt\cr
+  \noalign{\vskip-\@jot}}
+
+\def\infrule{\color{MathsColor} \@zed\@znoskip \halign\bgroup
+  \strut\quad$\@zlign##$\quad\hfil&\quad\@zlign##\hfil\cr}
+\let\endinfrule=\endzed
+
+\def\derive{\crcr \noalign{\vskip\@jot} \omit\@zrulefill
+  \@ifnextchar[{\@xderive}{\@yderive}}
+\def\@xderive[#1]{&$\smash{\lower 0.5ex\hbox{$[\color{ExplanationColor}\;#1\;]$}}$\cr 
+  \noalign{\vskip\@jot}}
+\def\@yderive{\cr \noalign{\vskip\@jot}}
+
+\def\because#1{\noalign{\vskip-\jot}&{\color{ExplanationColor} #1}\cr}
+
+\def\syntax{%
+  \let\zedmid=\mid
+  \def\mid{\mathrel{{\color{SyntaxDefinitionColor}\zedmid}}}
+  \color{MathsColor}
+  \@zed\@znoskip \halign\bgroup
+  \strut$\@zlign##$\hfil
+  &\hfil{\color{SyntaxDefinitionColor}$\@zlign{}##{}$}\hfil 
+  &$\@zlign##$\hfil\cr}
+\def\endsyntax{%
+  \def\mid{\zedmid}
+  \endzed}
+
+\let\zeddefs=\defs
+\def\defs{\mathrel{{\color{DefsSymbolColor}\zeddefs}}}
+
+\def\eqlawarray{%
+  \color{MathsColor}
+  \global\@eqnswtrue\m@th \global\@eqcnt\z@ \tabskip\mathindent
+  \let\\=\@eqncr \setlength\abovedisplayskip{\topsep} \ifvmode
+  \addtolength\abovedisplayskip{\partopsep} \fi
+  \setlength\belowdisplayskip{\abovedisplayskip}
+  \setlength\belowdisplayshortskip{\abovedisplayskip}
+  \setlength\abovedisplayshortskip{\abovedisplayskip}
+  $$\everycr{}\halign to\linewidth \bgroup \hskip\@centering
+  $\displaystyle\tabskip\z@skip{##}$\@eqnsel& \global\@eqcnt\@ne
+  \hskip \tw@\arraycolsep \hfil${##}$\hfil& \global\@eqcnt\tw@ \hskip
+  \tw@\arraycolsep $\displaystyle{##}$\hfil \tabskip\@centering&
+  \global\@eqcnt\thr@@ \hbox to
+  \z@\bgroup{\color{ExplanationColor}\hss##}\egroup\tabskip\z@skip\cr }
+
+\renewenvironment{equation}%
+    {\@beginparpenalty\predisplaypenalty
+     \@endparpenalty\postdisplaypenalty
+     \refstepcounter{equation}%
+     \bgroup \color{MathsColor} 
+     \trivlist \item[]\leavevmode
+       \hb@xt@\linewidth\bgroup $\m@th% $
+         \displaystyle
+         \hskip\mathindent}%
+        {$\hfil % $
+         \displaywidth\linewidth\hbox{\@eqnnum}%
+       \egroup 
+     \endtrivlist\egroup}
+
+\renewenvironment{eqnarray}{%
+    \stepcounter{equation}%
+    \def\@currentlabel{\p@equation\theequation}%
+    \global\@eqnswtrue\m@th
+    \global\@eqcnt\z@
+    \tabskip\mathindent
+    \let\\=\@eqncr
+    \setlength\abovedisplayskip{\topsep}%
+    \ifvmode
+      \addtolength\abovedisplayskip{\partopsep}%
+    \fi
+    \addtolength\abovedisplayskip{\parskip}%
+    \setlength\belowdisplayskip{\abovedisplayskip}%
+    \setlength\belowdisplayshortskip{\abovedisplayskip}%
+    \setlength\abovedisplayshortskip{\abovedisplayskip}%
+    \bgroup \color{MathsColor}
+    $$\everycr{}\halign to\linewidth% $$
+    \bgroup
+      \hskip\@centering
+      $\displaystyle\tabskip\z@skip{##}$\@eqnsel&%
+      \global\@eqcnt\@ne \hskip \tw@\arraycolsep \hfil${##}$\hfil&%
+      \global\@eqcnt\tw@ \hskip \tw@\arraycolsep
+        $\displaystyle{##}$\hfil \tabskip\@centering&%
+      \global\@eqcnt\thr@@
+        \hb@xt@\z@\bgroup\hss##\egroup\tabskip\z@skip\cr}%
+      {\@@eqncr
+    \egroup
+    \global\advance\c@equation\m@ne$$% $$
+    \egroup
+    \@ignoretrue
+    }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

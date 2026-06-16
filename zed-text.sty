@@ -1,0 +1,427 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% zed-text.sty: macros for text of Using Z - February 1999
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% from book.cls
+
+\renewcommand\chapter{\if@openright\cleardoublepage\else\clearpage\fi
+                    \thispagestyle{empty}%
+                    \global\@topnum\z@
+                    \@afterindentfalse
+                    \secdef\@chapter\@schapter}
+
+\def\@makechapterhead#1{\vbox to 14\baselineskip{%
+    {\parindent \z@ \raggedright \reset@font 
+      \if@mainmatter
+        \large\rmfamily
+        \@chapapp{} \thechapter 
+      \fi 
+      \par \vskip 7\p@ \hrule depth 1.5pt \vskip 12\p@ 
+      \huge\bfseries #1 \par \nobreak \vfil}}}
+
+\def\@makeschapterhead#1{\vbox to 14\baselineskip{%
+    \vspace*{1.5\baselineskip} { \parindent \z@ \raggedright \hrule
+      depth 1.5pt \vskip12pt \huge \bfseries #1\par \nobreak \vfil}}}
+
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-3.5ex \@plus -1ex \@minus -.2ex}%
+  {2.3ex \@plus.2ex}%
+  {\reset@font\large\bfseries}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-3.25ex\@plus -1ex \@minus -.2ex}%
+  {1.5ex \@plus .2ex}%
+  {\reset@font\normalsize\bfseries}}
+
+\setlength\leftmargini  {2.5em}
+\setlength\leftmarginii {2.2em}
+\setlength\leftmarginiii{1.87em}
+\setlength\leftmarginiv {1.7em}
+\setlength\leftmarginv  {1em}
+\setlength\leftmarginvi {1em}
+\setlength\leftmargin   {\leftmargini}
+
+\setlength  \labelsep  {.5em}
+\setlength  \labelwidth{\leftmargini}
+\addtolength\labelwidth{-\labelsep}
+
+% from bk10.clo - modified to suit (smaller display skips and a
+% slightly larger leading)
+
+\renewcommand\normalsize{%
+   \@setfontsize\normalsize\@xpt{13}%
+   \abovedisplayskip 11\p@ plus2\p@ \@minus3\p@
+   \abovedisplayshortskip 2\p@ \@plus\p@
+   \belowdisplayshortskip 6\p@ \@plus2\p@ \@minus2\p@
+   \belowdisplayskip \abovedisplayskip
+   \let\@listi\@listI}
+\normalsize
+\renewcommand\small{%
+   \@setfontsize\small\@ixpt{12}%
+   \abovedisplayskip 9\p@ \@plus3\p@ \@minus4\p@
+   \abovedisplayshortskip \p@ \@plus2\p@
+   \belowdisplayshortskip 5\p@ \@plus2\p@ \@minus2\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 4\p@ \@plus2\p@ \@minus2\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+\renewcommand\footnotesize{%
+   \@setfontsize\footnotesize\@viiipt{10.5}%
+   \abovedisplayskip 6\p@ \@plus2\p@ \@minus4\p@
+   \abovedisplayshortskip \z@ \@plus\p@
+   \belowdisplayshortskip 3\p@ \@plus\p@ \@minus2\p@
+   \def\@listi{\leftmargin\leftmargini
+               \topsep 3\p@ \@plus\p@ \@minus\p@
+               \parsep 2\p@ \@plus\p@ \@minus\p@
+               \itemsep \parsep}%
+   \belowdisplayskip \abovedisplayskip
+}
+\renewcommand\scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+\renewcommand\tiny{\@setfontsize\tiny\@vpt\@vipt}
+\renewcommand\large{\@setfontsize\large\@xiipt{14}}
+\renewcommand\Large{\@setfontsize\Large\@xivpt{18}}
+\renewcommand\LARGE{\@setfontsize\LARGE\@xviipt{22}}
+\renewcommand\huge{\@setfontsize\huge\@xxpt{25}}
+\renewcommand\Huge{\@setfontsize\Huge\@xxvpt{30}}
+
+\def\@listI{\leftmargin\leftmargini
+            \parsep \z@ \@plus\p@
+            \topsep 9\p@ \@plus\p@ \@minus2\p@
+            \itemsep5\p@ \@plus2\p@ \@minus\p@}
+\let\@listi\@listI
+\@listi
+\def\@listii {\leftmargin\leftmarginii
+              \labelwidth\leftmarginii
+              \advance\labelwidth-\labelsep
+              \topsep    5\p@ \@plus\p@ \@minus\p@
+              \parsep    \z@ \@plus\p@ 
+              \itemsep   \parsep}
+\def\@listiii{\leftmargin\leftmarginiii
+              \labelwidth\leftmarginiii
+              \advance\labelwidth-\labelsep
+              \topsep    2\p@ \@plus\p@\@minus\p@
+              \parsep    \z@
+              \partopsep \p@ \@plus\z@ \@minus\p@
+              \itemsep   \topsep}
+\def\@listiv {\leftmargin\leftmarginiv
+              \labelwidth\leftmarginiv
+              \advance\labelwidth-\labelsep}
+\def\@listv  {\leftmargin\leftmarginv
+              \labelwidth\leftmarginv
+              \advance\labelwidth-\labelsep}
+\def\@listvi {\leftmargin\leftmarginvi
+              \labelwidth\leftmarginvi
+              \advance\labelwidth-\labelsep}
+
+\setlength\parindent{\leftmargini}
+
+%% -------------------------------------------------------------------
+
+\headheight 12pt
+\topskip = 10pt
+
+\textwidth 127mm        \oddsidemargin 17mm     \evensidemargin 17mm
+
+\textheight 40\baselineskip     \advance \textheight\topskip
+
+\headsep 196mm          % <- intended page height 198mm (?)
+
+\advance \headsep -\textheight
+\advance \headsep -\headheight
+
+\topmargin 24mm
+
+\def\arraystretch{1.1}
+
+\def\headbreak{%
+  \kern3pt{\normalfont\normalsize\rmfamily /}\kern3pt\relax}
+
+\def\ps@frontmatter{\let\@mkboth\@gobbletwo
+  \def\@oddhead{%
+        \null \hfil {\normalfont\small\rmfamily\thepage}}%
+  \def\@oddfoot{}%
+  \def\@evenhead{%
+        {\normalfont\small\rmfamily\thepage} \hfil \null}%
+  \def\@evenfoot{}%
+  \def\chaptermark##1{%
+    {\markboth{##1}{##1}}}
+  \def\sectionmark##1{}%
+  \def\subsectionmark##1{}}
+
+\def\ps@myheadings{\let\@mkboth\@gobbletwo
+  \def\@oddhead{\hbox{}{\normalfont\small\slshape\rightmark} \hfil
+    {\normalfont\small\rmfamily\thepage}}%
+  \def\@oddfoot{}%
+  \def\@evenhead{{\normalfont\small\rmfamily\thepage\relax} \hfil
+    {\normalfont\small\slshape\leftmark\hbox{}}}
+  \def\@evenfoot{}%
+  \def\chaptermark##1{%
+    {\markboth{\thechapter\headbreak##1}{\thechapter\headbreak##1}}}
+  \def\sectionmark##1{%
+    {\markright{\thesection\headbreak##1}}}%
+  \def\subsectionmark##1{}}
+
+\def\ps@appendix{\let\@mkboth\@gobbletwo
+  \def\@oddhead{\hbox{}{\normalfont\small\slshape\rightmark} \hfil
+    {\normalfont\small\rmfamily\thepage}}%
+  \def\@oddfoot{}%
+  \def\@evenhead{{\normalfont\small\rmfamily\thepage\relax} \hfil
+    {\normalfont\small\slshape\leftmark\hbox{}}}
+  \def\@evenfoot{}%
+  \def\chaptermark##1{{\markboth{##1}{##1}}}
+  \def\sectionmark##1{}%
+  \def\subsectionmark##1{}}
+
+\pagestyle{myheadings}
+
+%% -------------------------------------------------------------------
+
+\renewcommand\cleardoublepage{%
+  \clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}\thispagestyle{empty}
+  \newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}  
+
+
+%% -------------------------------------------------------------------
+
+\def\thisischapter#1{\setcounter{chapter}{#1} \chaptermark{}
+                     \addtocounter{chapter}{-1}}
+
+\def\getchaprefs{\input chapref.tex \relax}
+
+\def\Appendix{\appendix}
+
+\def\inputs{\def\documentclass{\@ifnextchar[{\@dock}{\@@dock}}
+  \def\Appendix{}
+  \def\getchaprefs{}
+  \def\@dock[##1]##2{} 
+  \def\@@dock##1{} 
+  \def\document{} 
+  \def\enddocument{\clearpage\thispagestyle{empty}}}
+
+%% -------------------------------------------------------------------
+
+\renewcommand\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 12pt plus 2pt 
+    \setlength\@tempdima{2em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hbox to\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+%% -------------------------------------------------------------------
+
+\def\plaincontents#1{%
+  \addcontentsline{toc}{starchapter}{\protect\nonumberline #1}}
+
+\def\nonumberline{\hbox to\@tempdima{\hfil}}
+
+\newcommand\l@starchapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 12pt plus 2pt 
+    \setlength\@tempdima{2em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode %
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hbox to\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+\renewcommand\l@section      {\@undottedtocline{1}{2em}{3em}}
+
+\def\@undottedtocline#1#2#3#4#5{\ifnum #1>\c@tocdepth \else
+  {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+    \parindent #2\relax\@afterindenttrue
+   \interlinepenalty\@M
+   \leavevmode
+   \@tempdima #3\relax
+   \advance\leftskip \@tempdima \null\hskip -\leftskip
+    {#4}\nobreak\hfill \nobreak
+           \hbox to\@pnumwidth{%
+             \hfil\normalfont #5}\par}\fi}
+
+% removed \normalcolor from the above!
+
+\def\@pnumwidth{18pt}
+\def\@dotsep{6}
+
+\setcounter{tocdepth}{1}
+
+%% -------------------------------------------------------------------
+
+\def\@begintheorem#1#2{\trivlist 
+   \item[\hskip \labelsep{\bfseries #1\ #2}] \mbox{}}
+
+\def\@opargbegintheorem#1#2#3{\trivlist
+      \item[\hskip \labelsep{{\bfseries #1\ #2\ }(#3)}] \mbox{}}
+
+\def\@endtheorem{\nobreak\noindent$\Box$\endtrivlist}
+
+\newtheorem{example}{Example}[chapter] %
+\newtheorem{law}{Law}[chapter] % 
+\newtheorem{theorem}{Theorem}[chapter] %
+\newtheorem{lemma}{Lemma}[chapter] %
+\newtheorem{conjecture}{Conjecture}[chapter] %
+\newtheorem{abbreviation}{Abbreviation}[chapter] %
+\newtheorem{axiom}{Axiom}[chapter] %
+\newtheorem{transrule}{Rule}[chapter] %
+\newtheorem{definition}{Definition}[chapter] %
+
+%% -------------------------------------------------------------------
+
+\renewenvironment{theindex}
+               {\if@twocolumn
+                  \@restonecolfalse
+                \else
+                  \@restonecoltrue
+                \fi
+                \columnseprule \z@
+                \columnsep 35\p@
+                \twocolumn[\@makeschapterhead{\indexname}]%
+                \parindent\z@
+                \parskip\z@ \@plus .3\p@\relax
+                \let\item\@idxitem}
+               {\if@restonecol\onecolumn\else\clearpage\fi}
+
+\renewcommand\@idxitem{\par\hangindent 40\p@}
+\renewcommand\subitem{\par\hangindent 40\p@ \hspace*{20\p@}}
+\renewcommand\subsubitem{\par\hangindent 40\p@ \hspace*{30\p@}}
+\renewcommand\indexspace{\par \vskip 10\p@ \@plus5\p@ \@minus3\p@\relax}
+
+\def\schemaindex#1{}
+
+\def\notation#1{}
+
+\def\makenotation{%
+  \newwrite\@notationfile
+  \immediate\openout\@notationfile=\jobname.idn
+  \def\notation{\@bsphack\begingroup \@sanitize
+    \@wrnotation}\typeout
+  {Writing notation file \jobname.idn}%
+  }
+
+\def\@wrnotation#1{%
+   \protected@write\@notationfile{}%
+      {\string\indexentry{#1}{\thepage}}%
+ \endgroup
+ \@esphack
+}
+
+%% -------------------------------------------------------------------
+
+\def\fref#1{Figure~\ref{figure:#1}}
+\def\cref#1{Chapter~\ref{chapter:#1}}
+\def\sref#1{Section~\ref{section:#1}}
+\def\tref#1{Table~\ref{table:#1}}
+\def\xref#1{Example~\ref{example:#1}}
+\def\lref#1{Law~\ref{law:#1}}
+\def\aref#1{Appendix~\ref{appendix:#1}}
+
+%% -------------------------------------------------------------------
+
+\def\ps@exercises{\let\@mkboth\@gobbletwo
+  \def\@oddhead{\hbox{}{\normalfont\small\slshape\rightmark} \hfil
+    {\normalfont\small\rmfamily\thepage}}%
+  \def\@oddfoot{}%
+  \def\@evenhead{{\normalfont\small\rmfamily\thepage\relax} \hfil
+    {\normalfont\small\slshape\leftmark\hbox{}}}
+  \def\@evenfoot{}%
+  \def\chaptermark##1{}%
+  \def\sectionmark##1{}%
+  \def\subsectionmark##1{}}
+
+\newtheorem{exercise}{Exercise}[chapter] %
+\newtheorem{solution}{Solution}[chapter] %
+\newtheorem{question}{Question}
+\newtheorem{answer}{Answer}
+\newcounter{more} \setcounter{more}{0}
+
+\def\exercises#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{Exercises for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{Exercises}{\thechapter\headbreak#2}
+  \@enumdepth=1
+  }
+
+\def\assignment#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{#2}
+  \def\thechapter{}
+  \chapter{#1}%
+  \setcounter{page}{1}
+  \markboth{#2}{#1}
+  \@enumdepth=1
+  }
+
+\def\moreExercises#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{More Exercises for Chapter}
+  \setcounter{more}{\value{exercise}}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{exercise}{more}
+  \setcounter{page}{1}
+  \markboth{More Exercises for Using Z}{\thechapter\headbreak#2}
+  \@enumdepth=1
+  }
+
+\def\rules#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{Rules for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{Rules}{\thechapter\headbreak#2}
+  \@enumdepth=1
+  }
+
+\def\solutions#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{Solutions for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{Solutions}{\thechapter\headbreak#2}
+  \@enumdepth=1
+  }
+
+\def\moreSolutions#1#2{%
+  \pagestyle{exercises}
+  \def\@chapapp{More Solutions for Chapter}
+  \setcounter{chapter}{#1}
+  \addtocounter{chapter}{-1}
+  \chapter{#2}%
+  \setcounter{page}{1}
+  \markboth{More Solutions for Using Z}{\thechapter\headbreak#2}
+  \@enumdepth=1
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\endinput 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
