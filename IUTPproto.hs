@@ -34,6 +34,7 @@ data Institution sig sent model
 iDerive :: Ord sig => Institution sig set cat -> Institution sig set cat
 iDerive inst = inst{ comorphisms = S.map swap (morphisms (category inst))}
 
+iSen :: Eq obj => Institution obj obj model -> obj -> obj
 iSen inst sig = apply (objf (sentencef inst)) sig
 
 sat :: (Ord sent, Ord model) 
