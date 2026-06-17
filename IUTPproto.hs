@@ -31,11 +31,11 @@ apply f x
       | x == d  =  r
       | otherwise  =  search x rest
 
-data Institution sig sent model
+data Institution sig sentence model
   = I { category :: Category sig
-      , sentencef :: Fun sig sent
+      , sentencef :: Fun sig sentence
       , modelf :: Fun sig model -- use comorphisms, rather than morphisms
-      , satrel :: Set (model,sent)
+      , satrel :: Set (model,sentence)
       -- derived:
       , comorphisms :: Set (sig,sig)
       }
@@ -43,18 +43,27 @@ data Institution sig sent model
 iDerive :: Ord sig => Institution sig set cat -> Institution sig set cat
 iDerive inst = inst{ comorphisms = S.map swap (morphisms (category inst))}
 
-iSen :: Eq sig => Institution sig sent model -> sig -> sent
+iSen :: Eq sig => Institution sig sentence model -> sig -> sentence
 iSen inst sig = apply (objf (sentencef inst)) sig
 
-iMod :: Eq sig => Institution sig sent model -> sig -> model
+iMod :: Eq sig => Institution sig sentence model -> sig -> model
 iMod inst sig = apply (objf (modelf inst)) sig
 
-sat :: (Ord sent, Ord model) 
-    => Institution sig sent model -> model -> sent -> Bool
+sat :: (Ord sentence, Ord model) 
+    => Institution sig sentence model -> model -> sentence -> Bool
 sat inst modobj sentobj
   = (modobj,sentobj) `S.member` satrel inst
 
-
+-- sig is a given signature
+-- this does not use morphisms, arrf, or comorphisms
+-- it does use objf, sentencef, modelf, satrel
+satcond :: (Ord sentence, Ord model, Eq sig) 
+        => Institution sig sentence model -> sig -> sentence -> model -> Bool
+satcond inst sig sentence model' 
+  = let 
+      m'sat = sat inst model' (iSen inst sig)
+      modm'sat = sat inst (iMod inst sig) sentence
+    in m'sat == modm'sat
 
 
 type Signature = Set String
