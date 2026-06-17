@@ -46,12 +46,16 @@ iDerive inst = inst{ comorphisms = S.map swap (morphisms (category inst))}
 iSen :: Eq sig => Institution sig sent model -> sig -> sent
 iSen inst sig = apply (objf (sentencef inst)) sig
 
--- iMod :: Eq obj => Institution obj 
+iMod :: Eq sig => Institution sig sent model -> sig -> model
+iMod inst sig = apply (objf (modelf inst)) sig
 
 sat :: (Ord sent, Ord model) 
     => Institution sig sent model -> model -> sent -> Bool
 sat inst modobj sentobj
   = (modobj,sentobj) `S.member` satrel inst
+
+
+
 
 type Signature = Set String
 
