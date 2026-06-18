@@ -19,14 +19,14 @@ morph m o
       | otherwise  =  search o rest
 
 data Fun dom rng -- Functor defined in Prelude
-  = F { objf :: Set (dom,rng)
+  = Fun { objf :: Set (dom,rng)
       , arrf :: Set ((dom,dom),(rng,rng)) }
 
 apply :: Eq dom => Set (dom,mrg) -> dom -> mrg
 apply f x 
   = search x $ S.toList f
   where
-    search x [] = error ""
+    search x [] = error "undefined"
     search x ((d,r):rest)
       | x == d  =  r
       | otherwise  =  search x rest
@@ -65,7 +65,22 @@ satcond inst sig sentence model'
       modm'sat = sat inst (iMod inst sig) sentence
     in m'sat == modm'sat
 
+-- examples
 
-type Signature = Set String
+data TruthValues 
+  = T | F | U -- this may be extended....
+  deriving (Eq,Show,Read)
 
-type Sentence = [String] 
+threeV = [T,F,U]
+
+strictD = [T]
+mcCarthyD = [T]
+
+strictAnd U _ = U
+strictAnd _ U = U
+strictAnd T T = T
+strictAnd _ _ = F
+
+mcCarthyAnd F _ = F
+mcCarthyAnd T b = b
+mcCarthyAnd U _ = U
