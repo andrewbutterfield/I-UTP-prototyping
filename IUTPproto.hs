@@ -187,9 +187,31 @@ eval logic model pred = return $ XDomTruth $ evalPred logic model pred
 
 -- here we catch any undefinedess, and return U if it occurs
 evalPred :: XmplLogic -> XmplModel -> XmplSent -> TruthValues
+evalPred logic model (XSigGT xs1 xs2) = expreval logic model (>) xs1 xs2
+evalPred logic model (XSigNE xs1 xs2) = expreval logic model (/=) xs1 xs2
+evalPred logic model (XSigNot xs)
+ = case eval logic model xs of
+     Nothing             ->  U
+     Just (XDomTruth b)  ->  (lnot logic) b
+evalPred logic model (XSigAnd xs1 xs2)
+  = predeval logic model (land logic) xs1 xs2
+evalPred logic model (XSigOr xs1 xs2)  
+  = predeval logic model (lor logic) xs1 xs2
 evalPred logic model pred = U
---evalPred logic model (XSigGT xs1 xs2)  =  "("++show xs1++" > "++show xs2++")"
---evalPred logic model (XSigNE xs1 xs2)  =  "("++show xs1++" /= "++show xs2++")"
---evalPred logic model (XSigNot xs)  =  "!("++show xs++")"
---evalPred logic model (XSigAnd xs1 xs2)  =  "("++show xs1++" /\\ "++show xs2++")"
---evalPred logic model (XSigOr xs1 xs2)  =  "("++show xs1++" \\/ "++show xs2++")"
+
+expreval logic model rel xs1 xs2
+  = case eval logic model xs1 of
+      Nothing           -> U
+      Just (XDomNum n1) ->
+        case eval logic model xs2 of
+          Nothing           -> U
+          Just (XDomNum n2) -> if n1 `rel` n2 then T else F
+
+predeval logic model lop xs1 xs2
+  = case eval logic model xs1 of
+      Nothing           -> U
+      Just (XDomTruth b1) ->
+        case eval logic model xs2 of
+          Nothing           -> U
+          Just (XDomTruth b2) -> b1 `lop` b2
+
